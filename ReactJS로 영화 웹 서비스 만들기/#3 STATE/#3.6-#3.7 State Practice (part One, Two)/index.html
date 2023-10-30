@@ -19,6 +19,7 @@
       };
       const reset = () => setAmount(0); // state를 리스닝하거나 연결한 모든 것들이 0이 됨
       const onFlip = () => {
+        reset();
         setFlipped((current) => !current);
       };
 
@@ -42,7 +43,7 @@
 
         - disabled={flipped === false} → 조건문
           위 코드는 disabled={flipped === false}를 disabled={flipped}로 간단하게 수정함
-        */
+      */
     };
 
     ReactDOM.render(<App />, root);
