@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // [Unit Conversion]
+    const root = document.getElementById("root");
+    // 분 -> 시간
+    const App = () => {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false); // flipped는 헷갈릴 수 있어 inverted로 수정
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onInvert = () => {
+        reset();
+        setInverted((current) => !current);
+      };
+
+      return (
+        <div>
+          <h1 className="title">Super Converter</h1>
+          <div>
+            <label htmlFor="minutes">Minutes</label>
+            <input type="number" id="minutes" value={inverted ? amount * 60 : amount} placeholder="Minutes" onChange={onChange} disabled={inverted} />
+          </div>
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input type="number" id="hours" value={inverted ? amount : Math.round(amount / 60)} placeholder="Hours" onChange={onChange} disabled={!inverted} />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+        </div>
+      );
+      /*
+        - inverted가 false면 #minutes input이 활성화되어 있는 것으므로 Invert
+        - inverted가 true면 #hours input이 활성화되어 있는 것이므로 Turn back
+      */
+    };
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
